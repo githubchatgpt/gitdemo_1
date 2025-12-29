@@ -1,6 +1,8 @@
 git本地连接操作问题及解决
 
-git add 
+git add a.txt
+git commit -m ""
+git push origin main
 
 
 > —— 从“无法推送”到“权限被拒”，一步步实战记录
