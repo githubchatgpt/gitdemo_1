@@ -1,7 +1,9 @@
 git本地连接操作问题及解决
 
-git add a.txt
+git add a.txt b.txt c.txt
+git add new  #文件夹new不能为空
 git commit -m ""
+git pull origin main --rebase
 git push origin main
 
 
