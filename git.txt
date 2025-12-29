@@ -1,0 +1,74 @@
+
+git相关命令
+在 Git 中，有许多命令用于版本控制、协作和项目管理工作。以下是一些基本的 Git 命令，它们涵盖了大多数日常使用场景：
+1. 初始化仓库
+* 		git init：初始化一个新的 Git 仓库。
+2. 配置
+* 		git config --global user.name "你的名字"：设置用户名。
+* 		git config --global user.email "你的邮箱"：设置用户邮箱。
+* 		git config --list：查看所有配置。
+3. 基础操作
+* 		git status：查看当前仓库的状态。
+* 		git add 文件名：添加文件到暂存区。
+    * 		
+    * 		git add .：添加当前目录下的所有文件到暂存区。
+    * 		
+* 		
+* 		git commit -m "提交信息"：将暂存区的改动提交到仓库。
+* 		git commit --amend：修改最后一次提交（例如，添加漏掉的更改或更正提交信息）。
+4. 查看历史
+* 		git log：查看提交历史。
+    * 		
+    * 		git log --oneline：以简洁的一行形式显示历史。
+    * 		
+    * 		git log --stat：显示每次提交的统计信息。
+    * 		
+* 		
+* 		git diff：查看工作区和暂存区的差异。
+    * 		
+    * 		git diff --cached：查看暂存区和 HEAD 的差异。
+    * 		
+    * 		git diff 提交ID1 提交ID2：比较两个提交之间的差异。
+    * 		
+* 		
+5. 撤销更改
+* 		git checkout -- 文件名：丢弃工作区的改动。
+* 		git reset HEAD 文件名：将文件从暂存区移除但不修改工作区。
+* 		git reset --hard 提交ID：将 HEAD 重置到指定提交，并重置暂存区和工作区到那个提交的状态（慎用，会丢失未提交的更改）。
+6. 分支管理
+* 		git branch 分支名：创建新分支。
+* 		git checkout 分支名：切换到指定分支。
+    * 		
+    * 		git switch 分支名（较新的 Git 版本推荐使用）。
+    * 例如：git switch task/model_train
+    * 
+    * 		
+* 		
+* 		git merge 分支名：将指定分支合并到当前分支。
+* 		git branch -d 分支名：删除分支。
+* 		git branch：列出所有本地分支。
+    * 		
+    * 		git branch -r：列出远程分支。
+    * 		
+    * 		git branch -all：列出所有本地和远程分支。
+    * 		
+* 		
+7. 远程仓库操作
+* 		git remote add origin 远程仓库URL：添加远程仓库。
+* 		git push -u origin 分支名：将本地分支推送到远程仓库（第一次需要使用 -u 参数设置上游分支）。
+* 		git pull：从远程仓库拉取并合并数据。
+* 		git fetch：从远程仓库拉取数据，但不自动合并。
+* 		git clone 仓库URL：克隆一个远程仓库到本地。
+8. 标签管理
+* 		git tag -a v1.0 -m "版本1.0"：创建一个带注释的标签。
+* 		git tag：列出所有标签。
+* 		git push origin v1.0：将标签推送到远程仓库。
+* 		git push --tags：一次性推送所有标签到远程仓库。
+9. 高级操作
+* 		git stash：临时保存工作区的改动，以便可以切换到其他分支工作。
+* 		git stash apply 或 git stash pop：应用最近一次的 stash，并删除它。可以选择性地指定 stash@{数字} 来应用特定的 stash。
+* 		git cherry-pick 提交ID：将单个提交应用到当前分支，不改变该提交的作者和时间戳。
+
+
+
+
