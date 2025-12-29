@@ -47,7 +47,7 @@ Password for 'https://github.com':
 
 
 
-## 🔴 问题 3：`git push` 被拒绝，提示 “remote contains work that you do not have locally”
+## 🔴 问题 2：`git push` 被拒绝，提示 “remote contains work that you do not have locally”
 
 ### ❌ 现象
 ```bash
@@ -142,3 +142,59 @@ git remote set-url origin git@github.com:githubchatgpt/gitdemo_1.git
 # 6. 推送（无需任何认证）
 git push origin main
 ```
+
+
+
+问题3
+
+# 🚫 Git Push 被拒：因提交中含疑似 Token（Secret Scanning）
+
+## 🔍 问题现象
+```bash
+remote: error: GH013: Repository rule violations found
+remote: - Push cannot contain secrets
+remote:   —— GitHub Personal Access Token
+remote:    location: commit a6b93d6, git.txt:74
+To https://github.com/... ! [remote rejected] main -> main
+```
+
+## 🧩 原因
+你在某次提交（`a6b93d6`）的 `git.txt` 第 74 行写了一个形如 `ghp_xxx...` 的字符串，GitHub 自动识别为 **疑似 Personal Access Token**，触发安全保护，拒绝推送。
+
+> ❗ 即使你后来修改了文件，**历史提交仍存在敏感信息**，所以依然被拦。
+
+---
+
+## ✅ 解决方法
+
+### 步骤 1：重写历史，删除敏感内容
+```bash
+git rebase -i a6b93d6~1
+```
+在编辑器中将对应行的 `pick` 改为 `edit`，保存退出。
+
+### 步骤 2：编辑文件，删掉 token
+```bash
+vim git.txt  # 删除第74行或替换为 <REDACTED>
+git add git.txt
+```
+
+### 步骤 3：继续变基并强制推送
+```bash
+git rebase --continue
+git push origin main --force-with-lease
+```
+
+✅ 成功推送！
+
+---
+
+## 🛡️ 预防措施
+| 做法 | 说明 |
+|------|------|
+| ❌ 不要把 token 写进代码/文本 | 包括 `.txt`, `.py`, `.md` |
+| ✅ 使用 `.env` 文件 | 并加入 `.gitignore` |
+| ✅ 安装 pre-commit 工具 | 自动扫描 secrets |
+| ✅ 学会用 `--amend` 和 `rebase` | 及时修正错误提交 |
+
+> GitHub 拒绝推送是因为 **历史提交中含疑似 Token**，必须通过 **重写历史 + 强制推送** 彻底清除，才能恢复提交。
